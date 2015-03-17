@@ -1,0 +1,3 @@
+[submodule "POX/pox"]
+	path = POX/pox
+	url = git://github.com/noxrepo/pox.git
