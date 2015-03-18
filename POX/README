@@ -1,0 +1,45 @@
+# #Copyright (C) 2015, Delft University of Technology, Faculty of Electrical Engineering, Mathematics and Computer Science, Network Architectures and Services, Niels van Adrichem
+#
+# This file is part of NDNFlow.
+#
+# NDNFlow is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# NDNFlow is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with OpenNetMon. If not, see <http://www.gnu.org/licenses/>.
+
+SDN-NDNFlow POX Controller module
+=================================
+
+This subdirectory and README involve the installation of the POX OpenFlow controller and the corresponding modules from NDNFlow to enable ICN from the controller perspective.
+
+Step 1)
+After initially cloning this complete repository somewhere on your system, CD into this directory.
+# cd POX
+
+Step 2)
+Either checkout the pox submodule we used during experimentation (in the sample below), or install pox yourself  according to: https://openflow.stanford.edu/display/ONL/POX+Wiki#POXWiki-InstallingPOX (n.b. we have only tested on the betta branch).
+# cd pox
+# git submodule init
+# git submodule update
+
+Step 3)
+You now have a folder ~/pox containing the working directory of pox, make sure you have `cd`ed into it. In the pox working directory is a folder `ext`, meant to contain files that should not be modified by upgrading POX or checking out another branch.
+
+Creat e new folder `ccnxflow` into the `ext` directory and copy or move the code into it.
+
+# mkdir ext/ccnxflow
+# cp ../*.py ext/ccnxflow
+
+Run POX with the NDNFlow modules
+# ./pox.py ccnxflow.startup
+
+From here on, you are good to go to run experiments and get a feeling of NDNFlow's capabilities.
+The NDNFlow module contains a forwarding module capable of finding shortest paths in multipath networks and starts all depending modules from the `ccnxflow/startup.py` script.
