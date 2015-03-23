@@ -1,0 +1,35 @@
+#!/bin/sh
+
+#``CCNx-SDN''
+#
+#Copyright (C) 2014, Delft University of Technology, Faculty of Electrical Engineering, Mathematics and Computer Science, Network Architectures and Services, Niels van Adrichem
+#
+#    This file is part of ``Renaming Faces for CCNx''.
+#
+#    ``Renaming Faces for CCNx'' is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License version 3 as published by
+#    the Free Software Foundation.
+#
+#    ``Renaming Faces for CCNx'' is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with ``Renaming Faces for CCNx''.  If not, see <http:#www.gnu.org/licenses/>.
+
+JAR_FILE=ccn.jar
+JAVA_HOME=${JAVA_HOME:=/usr}
+JAVA=$JAVA_HOME/bin/java
+SCRIPT_DIR=`dirname $0`
+
+CP1=$SCRIPT_DIR/../lib/*.jar
+CP1=`echo $CP1 | sed "s/ /:/g"`
+CP2=$SCRIPT_DIR/../bin
+
+echo $CP1
+echo $CP2
+
+JAVA_RUN="$JAVA -cp $CP1:$CP2 ClientManager"
+echo $JAVA_RUN
+$JAVA_RUN
