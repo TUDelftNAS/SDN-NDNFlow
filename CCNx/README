@@ -25,7 +25,7 @@ SDN-NDNFlow CCNx switch module
 1. Prerequisites
 - This software has been build and tested using the CCNx architecture version 0.8.2., first of all make sure you have a working installation of version 0.8.2. Also see the submodule ccnx.
 - Make sure you have a properly configure JDK and JRE to compile and run the program, for example I use the Sun JRE and JDK 1.7.
-- Install Open vSwitch (OVS) which connects to exactly the same controller as where you run the POX module. Apart from running OVS, there is no further configuration or building necessary. We used 
+- Install Open vSwitch (OVS) which connects to exactly the same controller as where you run the POX module. Apart from running OVS, there is no further configuration or building necessary. We used stock Open vSwitch 2.0.2 from the Ubuntu 14.04.1 repositories during our experiments.
   
 2. Building
 	Download the source of NDNFlow and place it in a folder of your preference (e.g. use /home/username/tools/NDNFlow, from here on I assume you have a console open in this directory).
