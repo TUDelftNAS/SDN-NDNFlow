@@ -1,0 +1,59 @@
+# #Copyright (C) 2015, Delft University of Technology, Faculty of Electrical Engineering, Mathematics and Computer Science, Network Architectures and Services, Niels van Adrichem
+#
+# This file is part of NDNFlow.
+#
+# NDNFlow is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# NDNFlow is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with OpenNetMon. If not, see <http://www.gnu.org/licenses/>.
+
+SDN-NDNFlow CCNx switch module
+=================================
+
+1. Prerequisites
+2. Building
+3. Configuration and Usage
+
+1. Prerequisites
+- This software has been build and tested using the CCNx architecture version 0.8.2., first of all make sure you have a working installation of version 0.8.2. Also see the submodule ccnx.
+- Make sure you have a properly configure JDK and JRE to compile and run the program, for example I use the Sun JRE and JDK 1.7.
+- Install Open vSwitch (OVS) which connects to exactly the same controller as where you run the POX module. Apart from running OVS, there is no further configuration or building necessary. We used 
+  
+2. Building
+	Download the source of NDNFlow and place it in a folder of your preference (e.g. use /home/username/tools/NDNFlow, from here on I assume you have a console open in this directory).
+	The compilation and running of NDNFlow depends on a few jar-files carried along with CCNx-0.8.2 which should be in the folder lib.
+	You can either:
+		1) Extract the folder from this repository if you use CCNx 0.8.2.
+		2)	create the folder lib (mkdir lib)
+			copy the files ccn.jar, bcprov-jzdk16-143.jar from $CCNX_HOME/lib (cp $CCNX_HOME/lib/ccn.jar $CCNX_HOME/lib/bcprov-jdk16-143.jar lib)
+		3) create a symlink to your $CCNX_HOME/lib folder (in case you frequently patch your CCNx) (ln -s $CCNX_HOME/lib lib)
+
+	Run tools/compile.sh to build the source.
+	A folder named bin holding the class-files is created automatically
+
+3. Configuration and Usage
+	Configuration occurs by editing the `config.properties` file found in the home folder of the plugin using your favourite editor. Have a look at the sample file.
+	In the configuration file, a number of configuration parameters are of importance:
+	dpid:	Compulsory, the dpid must contain the hexadecimal representation of the Datapath Identifier of your OpenFlow capable switch. The controller module uses this parameter to couple the parrellel CCNx specific communication channel to the generic OpenFlow channel.
+	ip:	Compulsory, the ip MUST contain the internal (datapath) IP address of the OpenFlow LOCAL-port, or the IP address by which the CCNx daemon may be reached. This IP address is used to set up IP encapsulated tunnels between nodes that are disconnected by native means of CCNx.
+	server:	Compulsory, the IP address or hostname of the listening socket of the POX module.
+	port:	Optional, in case the plugin should connect to the POX module using a TCP port different from 6635.
+
+	At this point, configuration is complete for an NDN node that provides caching. Additionally, routing for content providers can be provided by adding content entries. Each content entry should be numbered incrementally from x={0, 1, 2, 3, 4..MAX_INTEGER} onwards.
+	entry.x: Contains the name prefix of the published content. Alike to IP forwarding rules, gateways may publish a default forwarding rule using a zero name component name of "ccnx:/".
+	entry.x.cost: The additional routing cost from this node to the content in terms of additional link cost / hop count on top of regular shortest path computation. This cost is used in the routing algorithm as initial cost value, it may be used to steer load balancing between multiple locations publishing the same content prefix at the same priority. Defaults to 0.
+	entry.x.priority: Absolute priority over other, equally named, routes. Lowest value takes precedence, note that longest-prefix match always has highest priority. Defaults to 0.
+	
+
+	To run the plugin, make sure a local CCNx daemon is running.
+	The plugin can then be started by running `tools/ClientManager`.
+
+	
