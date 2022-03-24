@@ -1,6 +1,6 @@
 [submodule "POX/pox"]
 	path = POX/pox
-	url = git://github.com/noxrepo/pox.git
+	url = https://github.com/noxrepo/pox.git
 [submodule "CCNx/ccnx"]
 	path = CCNx/ccnx
-	url = git://github.com/ProjectCCNx/ccnx.git
+	url = https://github.com/ProjectCCNx/ccnx.git
